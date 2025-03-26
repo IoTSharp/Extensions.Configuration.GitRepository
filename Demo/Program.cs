@@ -9,7 +9,7 @@ builder.Services.AddOpenApi();
 builder.Configuration.AddGitRepository(cfg =>
     cfg.WithHostUrl("https://gitlab.com/")
         .WithRepositoryPath("IoTSharp/gitlabcfg")
-        .WithAuthenticationToken("")
+        .WithAuthenticationToken(Console.ReadLine())
         .WithFileName("cfg.json")
     );
 var app = builder.Build();
