@@ -1,0 +1,39 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.13.35913.81
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "解决方案项", "解决方案项", "{9FA3D6BD-1EC1-3BA5-80CB-CE02773A58D5}"
+	ProjectSection(SolutionItems) = preProject
+		.gitignore = .gitignore
+		.github\FUNDING.yml = .github\FUNDING.yml
+		LICENSE = LICENSE
+		README.md = README.md
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Demo", "Demo\Demo.csproj", "{6B4B91FA-CDC9-4B6C-9288-C1F364C6D5A1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Extensions.Configuration.GitRepository", "Extensions.Configuration.GitRepository\Extensions.Configuration.GitRepository.csproj", "{2E05C6F1-193F-D1EC-0489-44F1AB614E05}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{6B4B91FA-CDC9-4B6C-9288-C1F364C6D5A1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6B4B91FA-CDC9-4B6C-9288-C1F364C6D5A1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6B4B91FA-CDC9-4B6C-9288-C1F364C6D5A1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6B4B91FA-CDC9-4B6C-9288-C1F364C6D5A1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2E05C6F1-193F-D1EC-0489-44F1AB614E05}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2E05C6F1-193F-D1EC-0489-44F1AB614E05}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2E05C6F1-193F-D1EC-0489-44F1AB614E05}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2E05C6F1-193F-D1EC-0489-44F1AB614E05}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {86301D97-4CE3-49A4-8F5E-5D7738EC3F68}
+	EndGlobalSection
+EndGlobal
