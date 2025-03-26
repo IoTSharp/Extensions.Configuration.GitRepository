@@ -3,15 +3,18 @@
   <PropertyGroup>
     <TargetFramework>net9.0</TargetFramework>
     <LangVersion>9</LangVersion>
-    <Authors>Denis Ivanov</Authors>
+    <Authors>IoTSharp</Authors>
     <FileVersion>1.0.0</FileVersion>
     <AssemblyVersion>1.0.0</AssemblyVersion>
     <Description>Provides GitRepository's file configuration provider</Description>
     <PackageTags>GitRepository;configuration; ASP.NET Core</PackageTags>
-    <RepositoryUrl>https://github.com/denis-ivanov/Microsoft.Extensions.Configuration.GitLab</RepositoryUrl>
+    <RepositoryUrl>https://github.com/IoTSharp/Extensions.Configuration.GitRepository</RepositoryUrl>
     <RepositoryType>Git</RepositoryType>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <PackageIcon>Icon.png</PackageIcon>
+    <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+    <PackageProjectUrl>https://github.com/IoTSharp/Extensions.Configuration.GitRepository</PackageProjectUrl>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
   </PropertyGroup>
 
   <ItemGroup>
@@ -24,6 +27,10 @@
 
   <ItemGroup>
     <None Include="..\Icon.png" Pack="true" PackagePath="" />
+    <None Include="..\README.md">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
   </ItemGroup>
   
 </Project>
