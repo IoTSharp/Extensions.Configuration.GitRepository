@@ -14,3 +14,5 @@ builder.Configuration.AddGitRepository(cfg =>
         .WithFileName("cfg.json")
     );
 ```
+### Thanks
+Inspired by https://github.com/denis-ivanov/Extensions.Configuration.GitLab
