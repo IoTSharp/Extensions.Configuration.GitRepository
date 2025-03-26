@@ -15,6 +15,7 @@
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
     <PackageProjectUrl>https://github.com/IoTSharp/Extensions.Configuration.GitRepository</PackageProjectUrl>
     <PackageReadmeFile>README.md</PackageReadmeFile>
+    <Version>1.0.0</Version>
   </PropertyGroup>
 
   <ItemGroup>
