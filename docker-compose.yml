@@ -1,0 +1,6 @@
+services:
+  demo:
+    image: ${DOCKER_REGISTRY-}demo
+    build:
+      context: .
+      dockerfile: Demo/Dockerfile

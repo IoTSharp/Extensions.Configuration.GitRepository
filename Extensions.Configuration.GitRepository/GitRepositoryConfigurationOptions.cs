@@ -56,10 +56,15 @@ namespace Extensions.Configuration.GitRepository
             AuthenticationToken = authenticationToken ?? throw new ArgumentNullException(nameof(authenticationToken));
             return this;
         }
-
+        public string CacheToFile { get; set; } 
         public GitRepositoryConfigurationOptions WithRepositoryPath([NotNull] string repositoryPath)
         {
             RepositoryPath = repositoryPath ?? throw new ArgumentNullException(nameof(repositoryPath));
+            return this;
+        }
+        public GitRepositoryConfigurationOptions WithCache(string _cacheToFile)
+        {
+            CacheToFile = _cacheToFile;
             return this;
         }
 
@@ -68,6 +73,7 @@ namespace Extensions.Configuration.GitRepository
             FileName = fileName ?? throw new ArgumentNullException(nameof(fileName));
             return this;
         }
+    
 
         public GitRepositoryConfigurationOptions WithKeyNormalizer([NotNull] Func<string, string> keyNormalizer)
         {

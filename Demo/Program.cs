@@ -6,12 +6,13 @@ builder.Services.AddControllers();
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
 builder.Services.AddOpenApi();
 //builder.Configuration.AddGitRepository("https://gitlab.com/", "IoTSharp/gitlabcfg", "", "cfg.json");
-builder.Configuration.AddGitRepository(cfg =>
+builder.Configuration.AddUserSecrets("personal_access_tokens").AddGitRepository(cfg =>
     cfg.WithHostUrl("https://gitlab.com/")
         .WithRepositoryPath("IoTSharp/gitlabcfg")
-        .WithAuthenticationToken(Console.ReadLine())
-        .WithFileName("cfg.json")
+        .WithAuthenticationToken( builder.Configuration.GetValue<string>("personal_access_tokens") )
+        .WithFileName("654123/cfg.json").WithCache($"{builder.Environment.ContentRootPath}{System.IO.Path.DirectorySeparatorChar}appsettings.{builder.Environment.EnvironmentName}.json")
     );
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

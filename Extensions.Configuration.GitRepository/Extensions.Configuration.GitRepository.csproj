@@ -19,11 +19,11 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Hyperbee.Json" Version="3.0.2" />
     <PackageReference Include="Microsoft.Extensions.Configuration" Version="9.0.3" />
     <PackageReference Include="Microsoft.Extensions.Configuration.Abstractions" Version="9.0.3" />
     <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="9.0.3" />
     <PackageReference Include="NGitLab" Version="8.3.0" />
-    <PackageReference Include="SystemTextJson.JsonDiffPatch" Version="2.0.0" />
   </ItemGroup>
 
   <ItemGroup>

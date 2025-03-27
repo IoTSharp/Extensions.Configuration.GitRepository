@@ -1,15 +1,18 @@
 ﻿using Extensions.Configuration.GitRepository;
+using Hyperbee.Json.Extensions;
+using Hyperbee.Json.Patch;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Configuration.Json;
 using NGitLab;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
 using System.IO;
+using System.Linq;
 using System.Text.Json;
-using System.Text.Json.JsonDiffPatch;
-using System.Text.Json.JsonDiffPatch.Diffs;
 using System.Text.Json.Nodes;
+using System.Text.Json.Serialization;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -34,7 +37,19 @@ namespace Extensions.Configuration.GitRepository
 
         public override void Load()
         {
-             LoadAsync();
+            LoadCache();
+            LoadAsync();
+        }
+
+        private void LoadCache()
+        {
+            if (File.Exists(_options.CacheToFile))
+            {
+                _jsonData = JsonDocument.Parse(File.ReadAllText(_options.CacheToFile));
+                Data = JsonConfigurationFileParser.Parse(_jsonData);
+
+            }
+         
         }
 
         private async Task LoadJsonFileAsync()
@@ -58,16 +73,26 @@ namespace Extensions.Configuration.GitRepository
         {
             await Task.Delay(_options.ReloadInterval, _cancellationTokenSource.Token).ConfigureAwait(false);
         }
-       private JsonDocument _jsonData { get; set; }
+       private JsonDocument  _jsonData { get; set; }
         private  void LoadAsync()
         {
-            var newData = GetNewDataAsync();
-
-            if (Changed(newData))
+            try
             {
-                _jsonData =  newData;
-                Data = JsonConfigurationFileParser.Parse(_jsonData);
-                OnReload();
+                var newData = GetNewDataAsync();
+                var _diff = JsonDiff<JsonNode>.Diff(_jsonData, newData).ToArray();
+                if (_diff.Any())
+                {
+                    _jsonData = newData;
+                    var jp = new JsonPatch(_diff.ToArray());
+                    var _jn = jp.Apply(_jsonData.RootElement);
+                    System.IO.File.WriteAllText(_options.CacheToFile, _jn.ToJsonString(new JsonSerializerOptions() { WriteIndented=true }));
+                    LoadCache();
+                    OnReload();
+                }
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex.Message);
             }
 
             if (!_changeTrackingStarted)
@@ -92,10 +117,7 @@ namespace Extensions.Configuration.GitRepository
             }
         }
 
-        private bool Changed(JsonDocument newData)
-        {
-            return !_jsonData.DeepEquals(newData);
-        }
+     
 
         private JsonDocument GetNewDataAsync()
         {
