@@ -1,4 +1,4 @@
-namespace Demo
+namespace Demo.Dots
 {
     public class WeatherForecast
     {

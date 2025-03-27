@@ -9,7 +9,7 @@ builder.Services.AddOpenApi();
 builder.Configuration.AddUserSecrets("personal_access_tokens").AddGitRepository(cfg =>
     cfg.WithHostUrl("https://gitlab.com/")
         .WithRepositoryPath("IoTSharp/gitlabcfg")
-        .WithAuthenticationToken( builder.Configuration.GetValue<string>("personal_access_tokens") )
+        .WithAuthenticationToken(builder.Configuration.GetValue<string>("personal_access_tokens"))
         .WithFileName("654123/cfg.json").WithCache($"{builder.Environment.ContentRootPath}{System.IO.Path.DirectorySeparatorChar}appsettings.{builder.Environment.EnvironmentName}.json")
     );
 

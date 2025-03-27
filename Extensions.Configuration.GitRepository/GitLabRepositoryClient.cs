@@ -1,46 +1,50 @@
-﻿using NGitLab.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using NGitLab;
+using NGitLab.Models;
 
 namespace Extensions.Configuration.GitRepository
 {
-    public class GitLabRepositoryClient: IGitRepositoryClient
+    public class GitLabRepositoryClient : IGitRepositoryClient
     {
         private string hostUrl;
         private string authenticationToken;
         private readonly NGitLab.GitLabClient client;
+        private readonly Project project;
+        private readonly IRepositoryClient repo;
 
-        public GitLabRepositoryClient() { }
+        public GitLabRepositoryClient()
+        { }
 
-        public GitLabRepositoryClient(string hostUrl, string authenticationToken)
+        public GitLabRepositoryClient(string hostUrl, string authenticationToken, string repoNamespaced)
         {
             this.hostUrl = hostUrl;
             this.authenticationToken = authenticationToken;
-           client = new NGitLab.GitLabClient(hostUrl, authenticationToken);
+            client = new NGitLab.GitLabClient(hostUrl, authenticationToken);
+            project = client.Projects.GetByNamespacedPathAsync(repoNamespaced).GetAwaiter().GetResult();
+            repo = client.GetRepository(new ProjectId(project.Id));
         }
-        string __ref = "";
-        public string GetRepositoryFile(string repoPath, string fileName, string _ref)
+
+        public bool FileExists(string filePath)
         {
-            var context = string.Empty;
-            var project = client.Projects.GetByNamespacedPathAsync(repoPath).GetAwaiter().GetResult();
-            var repo = client.GetRepository(new ProjectId(project.Id));
-          
-            if (!string.IsNullOrEmpty(_ref))
-            {
-                __ref = _ref;
-            }
-            else
-            {
-                __ref=project.DefaultBranch;
-            }
-            if (repo.Files.FileExists(fileName, __ref))
-            {
-                context = repo.Files.Get(fileName, __ref).DecodedContent;
-            }
+            return repo.Files.FileExists(filePath, project.DefaultBranch);
+        }
+
+        public string GetFile(string fileName)
+        {
+            var context = repo.Files.Get(fileName, project.DefaultBranch).DecodedContent;
             return context;
+        }
+
+        public void PutFile(string fileName, string content, string msg)
+        {
+            var fileUpsert = new FileUpsert
+            {
+                Branch = project.DefaultBranch,
+                CommitMessage = msg,
+                RawContent = content,
+                Encoding = "base64",
+                Path = fileName
+            };
+            repo.Files.Create(fileUpsert);
         }
     }
 }

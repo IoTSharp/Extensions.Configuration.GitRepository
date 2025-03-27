@@ -1,7 +1,9 @@
 ﻿using Extensions.Configuration.GitRepository;
-using NGitLab;
 using System;
 using System.Diagnostics.CodeAnalysis;
+using System.IO;
+using System.Text;
+using System.Text.Json;
 
 namespace Microsoft.Extensions.Configuration
 {
@@ -38,7 +40,7 @@ namespace Microsoft.Extensions.Configuration
             {
                 throw new ArgumentNullException(nameof(environmentName));
             }
-            
+
             var options = new GitRepositoryConfigurationOptions(hostUrl, repositoryPath, authenticationToken, environmentName);
             return builder.AddGitRepository(options);
         }
@@ -76,9 +78,20 @@ namespace Microsoft.Extensions.Configuration
                 throw new ArgumentNullException(nameof(options));
             }
 
-            var gitlabClient = new   GitLabRepositoryClient(options.HostUrl, options.AuthenticationToken);
+            var gitlabClient = new GitLabRepositoryClient(options.HostUrl, options.AuthenticationToken, options.RepositoryPath);
             var source = new GitRepositoryConfigurationSource(gitlabClient, options);
             return builder.Add(source);
+        }
+
+        internal static string ToJsonString(this JsonDocument jdoc, JsonWriterOptions options = default)
+        {
+            using (var stream = new MemoryStream())
+            {
+                Utf8JsonWriter writer = new Utf8JsonWriter(stream, options);
+                jdoc.WriteTo(writer);
+                writer.Flush();
+                return Encoding.UTF8.GetString(stream.ToArray());
+            }
         }
     }
 }

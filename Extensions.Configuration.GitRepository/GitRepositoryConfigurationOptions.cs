@@ -12,7 +12,7 @@ namespace Extensions.Configuration.GitRepository
 
         public GitRepositoryConfigurationOptions(
             [NotNull] string hostUrl,
-            [NotNull] string  repositoryPath,
+            [NotNull] string repositoryPath,
             [NotNull] string authenticationToken,
             [NotNull] string filename)
         {
@@ -21,16 +21,16 @@ namespace Extensions.Configuration.GitRepository
             AuthenticationToken = authenticationToken ?? throw new ArgumentNullException(nameof(authenticationToken));
             FileName = filename ?? throw new ArgumentNullException(nameof(filename));
         }
-        
+
         public TimeSpan ReloadInterval { get; set; } = TimeSpan.FromSeconds(60);
-        
+
         public string HostUrl { get; set; }
 
         public string AuthenticationToken { get; set; }
 
-        public string  RepositoryPath { get; set; }
+        public string RepositoryPath { get; set; }
 
-        public string FileName { get; set; } 
+        public string FileName { get; set; }
         public string Ref { get; set; } = string.Empty;
 
         public Func<string, string> KeyNormalizer { get; set; } = NormalizeKey;
@@ -40,11 +40,13 @@ namespace Extensions.Configuration.GitRepository
             ReloadInterval = reloadInterval;
             return this;
         }
+
         public GitRepositoryConfigurationOptions WithRef([NotNull] string _ref)
         {
             Ref = _ref ?? throw new ArgumentNullException(nameof(_ref));
             return this;
         }
+
         public GitRepositoryConfigurationOptions WithHostUrl([NotNull] string hostUrl)
         {
             HostUrl = hostUrl ?? throw new ArgumentNullException(nameof(hostUrl));
@@ -56,12 +58,15 @@ namespace Extensions.Configuration.GitRepository
             AuthenticationToken = authenticationToken ?? throw new ArgumentNullException(nameof(authenticationToken));
             return this;
         }
-        public string CacheToFile { get; set; } 
+
+        public string CacheToFile { get; set; }
+
         public GitRepositoryConfigurationOptions WithRepositoryPath([NotNull] string repositoryPath)
         {
             RepositoryPath = repositoryPath ?? throw new ArgumentNullException(nameof(repositoryPath));
             return this;
         }
+
         public GitRepositoryConfigurationOptions WithCache(string _cacheToFile)
         {
             CacheToFile = _cacheToFile;
@@ -73,14 +78,13 @@ namespace Extensions.Configuration.GitRepository
             FileName = fileName ?? throw new ArgumentNullException(nameof(fileName));
             return this;
         }
-    
 
         public GitRepositoryConfigurationOptions WithKeyNormalizer([NotNull] Func<string, string> keyNormalizer)
         {
             KeyNormalizer = keyNormalizer ?? throw new ArgumentNullException(nameof(keyNormalizer));
             return this;
         }
-        
+
         private static string NormalizeKey(string key)
         {
             if (string.IsNullOrEmpty(key))

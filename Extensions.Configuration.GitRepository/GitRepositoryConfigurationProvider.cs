@@ -1,21 +1,14 @@
-﻿using Extensions.Configuration.GitRepository;
-using Hyperbee.Json.Extensions;
-using Hyperbee.Json.Patch;
+﻿using Hyperbee.Json.Patch;
 using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.Configuration.Json;
-using NGitLab;
 using System;
-using System.Collections.Generic;
 using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Linq;
 using System.Text.Json;
 using System.Text.Json.Nodes;
-using System.Text.Json.Serialization;
 using System.Threading;
 using System.Threading.Tasks;
-
 
 namespace Extensions.Configuration.GitRepository
 {
@@ -37,19 +30,7 @@ namespace Extensions.Configuration.GitRepository
 
         public override void Load()
         {
-            LoadCache();
             LoadAsync();
-        }
-
-        private void LoadCache()
-        {
-            if (File.Exists(_options.CacheToFile))
-            {
-                _jsonData = JsonDocument.Parse(File.ReadAllText(_options.CacheToFile));
-                Data = JsonConfigurationFileParser.Parse(_jsonData);
-
-            }
-         
         }
 
         private async Task LoadJsonFileAsync()
@@ -60,7 +41,7 @@ namespace Extensions.Configuration.GitRepository
 
                 try
                 {
-                     LoadAsync();
+                    LoadAsync();
                 }
                 catch
                 {
@@ -73,21 +54,52 @@ namespace Extensions.Configuration.GitRepository
         {
             await Task.Delay(_options.ReloadInterval, _cancellationTokenSource.Token).ConfigureAwait(false);
         }
-       private JsonDocument  _jsonData { get; set; }
-        private  void LoadAsync()
+
+        private void LoadAsync()
         {
             try
             {
-                var newData = GetNewDataAsync();
-                var _diff = JsonDiff<JsonNode>.Diff(_jsonData, newData).ToArray();
-                if (_diff.Any())
+                JsonDocument _jsonData = null;
+                if (File.Exists(_options.CacheToFile))
                 {
-                    _jsonData = newData;
-                    var jp = new JsonPatch(_diff.ToArray());
-                    var _jn = jp.Apply(_jsonData.RootElement);
-                    System.IO.File.WriteAllText(_options.CacheToFile, _jn.ToJsonString(new JsonSerializerOptions() { WriteIndented=true }));
-                    LoadCache();
-                    OnReload();
+                    _jsonData = JsonDocument.Parse(File.ReadAllText(_options.CacheToFile));
+                }
+                if (_gitlabClient.FileExists(_options.FileName))
+                {
+                    var fileContent = _gitlabClient.GetFile(_options.FileName);
+                    if (_jsonData == null)//如果远程文件存在，本地文件不存在， 就直接使用远程文件
+                    {
+                        _jsonData = JsonDocument.Parse(fileContent);
+                        if (_jsonData != null)
+                        {
+                            System.IO.File.WriteAllText(_options.CacheToFile, fileContent);
+                        }
+                        Data = JsonConfigurationFileParser.Parse(_jsonData);
+                        OnReload();
+                    }
+                    else
+                    {//如果远程文件存在，本地文件存在， 就比较两个文件的差异，如果有差异， 就合并差异，然后缓存到本地，然后重新加载
+                        var _diff = JsonDiff<JsonNode>.Diff(_jsonData, JsonDocument.Parse(fileContent)).ToArray();
+                        if (_diff.Any())
+                        {
+                            var jp = new JsonPatch(_diff.ToArray());
+                            var _jn = jp.Apply(_jsonData.RootElement);
+                            string _json = _jn.ToJsonString(new JsonSerializerOptions() { WriteIndented = true });
+                            System.IO.File.WriteAllText(_options.CacheToFile, _json);
+                            _jsonData = JsonDocument.Parse(_json);
+                            Data = JsonConfigurationFileParser.Parse(_jsonData);
+                            OnReload();
+                        }
+                    }
+                }
+                else
+                {
+                    if (_jsonData != null)//如果远程文件不存在，本地文件存在， 就上传本地文件
+                    {
+                        _gitlabClient.PutFile(_options.FileName, _jsonData.ToJsonString(new JsonWriterOptions { Indented = true }), "local file upload to git repo");
+                        Data = JsonConfigurationFileParser.Parse(_jsonData);
+                        OnReload();
+                    }
                 }
             }
             catch (Exception ex)
@@ -116,14 +128,5 @@ namespace Extensions.Configuration.GitRepository
                 _cancellationTokenSource.Dispose();
             }
         }
-
-     
-
-        private JsonDocument GetNewDataAsync()
-        {
-            var fileContent = _gitlabClient.GetRepositoryFile(_options.RepositoryPath,_options.FileName,_options.Ref);
-            return JsonDocument.Parse(fileContent);
-        }
     }
-
 }

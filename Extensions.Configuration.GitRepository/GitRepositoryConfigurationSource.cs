@@ -1,5 +1,4 @@
 ﻿using Microsoft.Extensions.Configuration;
-using NGitLab;
 using System;
 using System.Diagnostics.CodeAnalysis;
 

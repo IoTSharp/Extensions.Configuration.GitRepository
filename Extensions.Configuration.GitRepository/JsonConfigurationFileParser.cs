@@ -1,9 +1,7 @@
 ﻿using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Text.Json;
-
 
 namespace Extensions.Configuration.GitRepository
 {
@@ -81,9 +79,11 @@ namespace Extensions.Configuration.GitRepository
                 case JsonValueKind.Object:
                     VisitObjectElement(value);
                     break;
+
                 case JsonValueKind.Array:
                     VisitArrayElement(value);
                     break;
+
                 case JsonValueKind.String:
                 case JsonValueKind.Number:
                 case JsonValueKind.True:
