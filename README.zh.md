@@ -2,11 +2,11 @@
 
 ### 项目概述
 **Git repository configuration provider** 是一个用于管理和加载配置文件的库，专门为 C# 开发者设计。它允许开发者从 Git 仓库中直接读取配置文件，以便在分布式系统或微服务架构中实现集中配置管理和版本控制。
+
 [![Build status](https://ci.appveyor.com/api/projects/status/egfxe7u2b23672j6?svg=true)](https://ci.appveyor.com/project/MaiKeBing/extensions-configuration-gitrepository)
-[![GitHub Tag](https://img.shields.io/github/tag/IoTSharp/Extensions.Configuration.GitRepository.svg?style=flat-square)](https://github.com/IoTSharp/Extensions.Configuration.GitRepository/releases)
 [![NuGet Count](https://img.shields.io/nuget/dt/Extensions.Configuration.GitRepository.svg?style=flat-square)](https://www.nuget.org/packages/Extensions.Configuration.GitRepository/)
 [![Issues Open](https://img.shields.io/github/issues/IoTSharp/Extensions.Configuration.GitRepository.svg?style=flat-square)](https://github.com/IoTSharp/Extensions.Configuration.GitRepository/issues)
-
+![NuGet Version](https://img.shields.io/nuget/v/Extensions.Configuration.GitRepository)
 
 
 ### 主要功能
