@@ -1,5 +1,6 @@
 ﻿using NGitLab;
 using NGitLab.Models;
+using System.Diagnostics;
 
 namespace Extensions.Configuration.GitRepository
 {
@@ -8,34 +9,52 @@ namespace Extensions.Configuration.GitRepository
         private string hostUrl;
         private string authenticationToken;
         private readonly NGitLab.GitLabClient client;
-        private readonly Project project;
-        private readonly IRepositoryClient repo;
+        private readonly string _repoNamespaced;
+        private  Project project;
+        private  IRepositoryClient repo;
 
-        public GitLabRepositoryClient()
-        { }
-
+   
         public GitLabRepositoryClient(string hostUrl, string authenticationToken, string repoNamespaced)
         {
             this.hostUrl = hostUrl;
             this.authenticationToken = authenticationToken;
             client = new NGitLab.GitLabClient(hostUrl, authenticationToken);
-            project = client.Projects.GetByNamespacedPathAsync(repoNamespaced).GetAwaiter().GetResult();
-            repo = client.GetRepository(new ProjectId(project.Id));
+            _repoNamespaced = repoNamespaced;
+        }
+
+        private void check_connect( )
+        {
+            if (project == null || repo==null)
+            {
+                try
+                {
+                    project = client.Projects.GetByNamespacedPathAsync(_repoNamespaced).GetAwaiter().GetResult();
+                    repo = client.GetRepository(new ProjectId(project.Id));
+                }
+                catch (System.Exception ex)
+                {
+                    Debug.WriteLine(ex);
+                    throw;
+                }
+            }
         }
 
         public bool FileExists(string filePath)
         {
+            check_connect();
             return repo.Files.FileExists(filePath, project.DefaultBranch);
         }
 
         public string GetFile(string fileName)
         {
+            check_connect();
             var context = repo.Files.Get(fileName, project.DefaultBranch).DecodedContent;
             return context;
         }
 
         public void PutFile(string fileName, string content, string msg)
         {
+            check_connect();
             var fileUpsert = new FileUpsert
             {
                 Branch = project.DefaultBranch,
