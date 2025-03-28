@@ -1,5 +1,6 @@
 ﻿using NGitLab;
 using NGitLab.Models;
+using System;
 using System.Diagnostics;
 
 namespace Extensions.Configuration.GitRepository
@@ -33,7 +34,7 @@ namespace Extensions.Configuration.GitRepository
                 }
                 catch (System.Exception ex)
                 {
-                    Debug.WriteLine(ex);
+                    Console.WriteLine($"GitLabRepositoryClient:{ex.ToString()}");
                     throw;
                 }
             }

@@ -14,7 +14,7 @@ namespace Microsoft.Extensions.Configuration
             [NotNull] string hostUrl,
             [NotNull] string repositoryPath,
             [NotNull] string authenticationToken,
-            [NotNull] string environmentName)
+            [NotNull] string fileName)
         {
             if (builder == null)
             {
@@ -36,12 +36,12 @@ namespace Microsoft.Extensions.Configuration
                 throw new ArgumentNullException(nameof(authenticationToken));
             }
 
-            if (environmentName == null)
+            if (fileName == null)
             {
-                throw new ArgumentNullException(nameof(environmentName));
+                throw new ArgumentNullException(nameof(fileName));
             }
 
-            var options = new GitRepositoryConfigurationOptions(hostUrl, repositoryPath, authenticationToken, environmentName);
+            var options = new GitRepositoryConfigurationOptions(hostUrl, repositoryPath, authenticationToken, fileName);
             return builder.AddGitRepository(options);
         }
 

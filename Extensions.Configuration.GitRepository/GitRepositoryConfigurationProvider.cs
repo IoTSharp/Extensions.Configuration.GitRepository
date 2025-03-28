@@ -14,7 +14,7 @@ namespace Extensions.Configuration.GitRepository
 {
     public class GitRepositoryConfigurationProvider : ConfigurationProvider, IDisposable
     {
-        private readonly IGitRepositoryClient _gitlabClient;
+        private readonly IGitRepositoryClient __gitRepo;
         private readonly GitRepositoryConfigurationOptions _options;
         private readonly CancellationTokenSource _cancellationTokenSource;
         private bool _changeTrackingStarted;
@@ -23,14 +23,14 @@ namespace Extensions.Configuration.GitRepository
             [NotNull] IGitRepositoryClient gitlabClient,
             [NotNull] GitRepositoryConfigurationOptions options)
         {
-            _gitlabClient = gitlabClient ?? throw new ArgumentNullException(nameof(gitlabClient));
+            __gitRepo = gitlabClient ?? throw new ArgumentNullException(nameof(gitlabClient));
             _options = options ?? throw new ArgumentNullException(nameof(options));
             _cancellationTokenSource = new CancellationTokenSource();
         }
 
         public override void Load()
         {
-            LoadAsync();
+            SyncGitRepoFile();
         }
 
         private async Task LoadJsonFileAsync()
@@ -41,7 +41,7 @@ namespace Extensions.Configuration.GitRepository
 
                 try
                 {
-                    LoadAsync();
+                    SyncGitRepoFile();
                 }
                 catch
                 {
@@ -55,7 +55,7 @@ namespace Extensions.Configuration.GitRepository
             await Task.Delay(_options.ReloadInterval, _cancellationTokenSource.Token).ConfigureAwait(false);
         }
 
-        private void LoadAsync()
+        private void SyncGitRepoFile()
         {
             try
             {
@@ -64,9 +64,9 @@ namespace Extensions.Configuration.GitRepository
                 {
                     _jsonData = JsonDocument.Parse(File.ReadAllText(_options.CacheToFile));
                 }
-                if (_gitlabClient.FileExists(_options.FileName))
+                if (__gitRepo.FileExists(_options.FileName))
                 {
-                    var fileContent = _gitlabClient.GetFile(_options.FileName);
+                    var fileContent = __gitRepo.GetFile(_options.FileName);
                     if (_jsonData == null)//如果远程文件存在，本地文件不存在， 就直接使用远程文件
                     {
                         _jsonData = JsonDocument.Parse(fileContent);
@@ -96,7 +96,7 @@ namespace Extensions.Configuration.GitRepository
                 {
                     if (_jsonData != null)//如果远程文件不存在，本地文件存在， 就上传本地文件
                     {
-                        _gitlabClient.PutFile(_options.FileName, _jsonData.ToJsonString(new JsonWriterOptions { Indented = true }), "local file upload to git repo");
+                        __gitRepo.PutFile(_options.FileName, _jsonData.ToJsonString(new JsonWriterOptions { Indented = true }), "local file upload to git repo");
                         Data = JsonConfigurationFileParser.Parse(_jsonData);
                         OnReload();
                     }
@@ -104,7 +104,7 @@ namespace Extensions.Configuration.GitRepository
             }
             catch (Exception ex)
             {
-                Debug.WriteLine(ex.Message);
+               Console.WriteLine(ex.ToString());
             }
 
             if (!_changeTrackingStarted)
