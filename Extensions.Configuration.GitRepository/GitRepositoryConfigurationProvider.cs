@@ -62,44 +62,14 @@ namespace Extensions.Configuration.GitRepository
                 JsonDocument _jsonData = null;
                 if (File.Exists(_options.CacheToFile))
                 {
-                    _jsonData = JsonDocument.Parse(File.ReadAllText(_options.CacheToFile));
+                    _jsonData = ReadCache();
                 }
-                if (__gitRepo.FileExists(_options.FileName))
+                 ReadGitRepo( ref _jsonData);
+                if (_jsonData != null)
                 {
-                    var fileContent = __gitRepo.GetFile(_options.FileName);
-                    if (_jsonData == null)//如果远程文件存在，本地文件不存在， 就直接使用远程文件
-                    {
-                        _jsonData = JsonDocument.Parse(fileContent);
-                        if (_jsonData != null)
-                        {
-                            System.IO.File.WriteAllText(_options.CacheToFile, fileContent);
-                        }
-                        Data = JsonConfigurationFileParser.Parse(_jsonData);
-                        OnReload();
-                    }
-                    else
-                    {//如果远程文件存在，本地文件存在， 就比较两个文件的差异，如果有差异， 就合并差异，然后缓存到本地，然后重新加载
-                        var _diff = JsonDiff<JsonNode>.Diff(_jsonData, JsonDocument.Parse(fileContent)).ToArray();
-                        if (_diff.Any())
-                        {
-                            var jp = new JsonPatch(_diff.ToArray());
-                            var _jn = jp.Apply(_jsonData.RootElement);
-                            string _json = _jn.ToJsonString(new JsonSerializerOptions() { WriteIndented = true });
-                            System.IO.File.WriteAllText(_options.CacheToFile, _json);
-                            _jsonData = JsonDocument.Parse(_json);
-                            Data = JsonConfigurationFileParser.Parse(_jsonData);
-                            OnReload();
-                        }
-                    }
-                }
-                else
-                {
-                    if (_jsonData != null)//如果远程文件不存在，本地文件存在， 就上传本地文件
-                    {
-                        __gitRepo.PutFile(_options.FileName, _jsonData.ToJsonString(new JsonWriterOptions { Indented = true }), "local file upload to git repo");
-                        Data = JsonConfigurationFileParser.Parse(_jsonData);
-                        OnReload();
-                    }
+
+                    Data = JsonConfigurationFileParser.Parse(_jsonData);
+                    OnReload();
                 }
             }
             catch (Exception ex)
@@ -111,6 +81,76 @@ namespace Extensions.Configuration.GitRepository
             {
                 _changeTrackingStarted = true;
                 _ = Task.Run(async () => await LoadJsonFileAsync());
+            }
+        }
+
+        private void  ReadGitRepo( ref JsonDocument _jsonData)
+        {
+            try
+            {
+                if (__gitRepo.FileExists(_options.FileName))
+                {
+                    var fileContent = __gitRepo.GetFile(_options.FileName);
+                    if (_jsonData == null)//如果远程文件存在，本地文件不存在， 就直接使用远程文件
+                    {
+                        _jsonData = JsonDocument.Parse(fileContent);
+                        if (_jsonData != null)
+                        {
+                            SaveCache(fileContent);
+                        }
+                    }
+                    else
+                    {//如果远程文件存在，本地文件存在， 就比较两个文件的差异，如果有差异， 就合并差异，然后缓存到本地，然后重新加载
+                        var _diff = JsonDiff<JsonNode>.Diff(_jsonData, JsonDocument.Parse(fileContent)).ToArray();
+                        if (_diff.Any())
+                        {
+                            var jp = new JsonPatch(_diff.ToArray());
+                            var _jn = jp.Apply(_jsonData.RootElement);
+                            string _json = _jn.ToJsonString(new JsonSerializerOptions() { WriteIndented = true });
+                            SaveCache(_json);
+                            _jsonData = JsonDocument.Parse(_json);
+
+                        }
+                    }
+                }
+                else
+                {
+                    if (_jsonData != null)//如果远程文件不存在，本地文件存在， 就上传本地文件
+                    {
+                        __gitRepo.PutFile(_options.FileName, _jsonData.ToJsonString(new JsonWriterOptions { Indented = true }), "local file upload to git repo");
+                    }
+                }
+            }
+            catch (Exception ex1)
+            {
+                Console.WriteLine(ex1.ToString());
+
+            }
+        }
+
+        private JsonDocument ReadCache()
+        {
+            JsonDocument document = null;
+            try
+            {
+                document = JsonDocument.Parse(File.ReadAllText(_options.CacheToFile));
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"cant't load cache .{ex.Message}");
+            }
+            return document;
+        }
+
+        private void SaveCache(string fileContent)
+        {
+            try
+            {
+                System.IO.File.WriteAllText(_options.CacheToFile, fileContent);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"cant't save  cache .{ex.Message}");
             }
         }
 
