@@ -1,31 +1,26 @@
 ﻿using NGitLab;
 using NGitLab.Models;
 using System;
-using System.Diagnostics;
 
 namespace Extensions.Configuration.GitRepository
 {
     public class GitLabRepositoryClient : IGitRepositoryClient
     {
-        private string hostUrl;
-        private string authenticationToken;
+
         private readonly NGitLab.GitLabClient client;
         private readonly string _repoNamespaced;
-        private  Project project;
-        private  IRepositoryClient repo;
+        private Project project;
+        private IRepositoryClient repo;
 
-   
         public GitLabRepositoryClient(string hostUrl, string authenticationToken, string repoNamespaced)
         {
-            this.hostUrl = hostUrl;
-            this.authenticationToken = authenticationToken;
             client = new NGitLab.GitLabClient(hostUrl, authenticationToken);
             _repoNamespaced = repoNamespaced;
         }
 
-        private void check_connect( )
+        private void check_connect()
         {
-            if (project == null || repo==null)
+            if (project == null || repo == null)
             {
                 try
                 {
