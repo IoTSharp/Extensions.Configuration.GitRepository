@@ -12,11 +12,11 @@ namespace DemoUseStartup
             return Host.CreateDefaultBuilder(args)
                  .ConfigureAppConfiguration((context, builder) =>
                  {
-                     
-                    var pat= builder.AddUserSecrets("personal_access_tokens").Build();
-                    
+
+                     var pat = builder.AddUserSecrets("personal_access_tokens").Build();
                      builder.AddGitRepository(cfg =>
-                                            cfg.WithHostUrl("https://gitlab.com/")
+                                            cfg.WithGitLab()
+                                            .WithHostUrl("https://gitlab.com/")
                                                 .WithRepositoryPath("IoTSharp/gitlabcfg")
                                                 .WithAuthenticationToken(pat.GetValue<string>("personal_access_tokens"))
                                                 .WithFileName($"{Environment.GetEnvironmentVariable("UIXEID")}/cfg.json")

@@ -10,10 +10,10 @@ namespace Extensions.Configuration.GitRepository
         private readonly GitRepositoryConfigurationOptions _options;
 
         public GitRepositoryConfigurationSource(
-            [NotNull] IGitRepositoryClient gitRepo,
+        
             [NotNull] GitRepositoryConfigurationOptions options)
         {
-            _gitRepo = gitRepo ?? throw new ArgumentNullException(nameof(gitRepo));
+            _gitRepo = options?.GitRepositoryClient ?? throw new ArgumentNullException("GitRepositoryClient");
             _options = options ?? throw new ArgumentNullException(nameof(options));
         }
 

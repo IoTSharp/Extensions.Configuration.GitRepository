@@ -2,9 +2,9 @@
 using NGitLab.Models;
 using System;
 
-namespace Extensions.Configuration.GitRepository
+namespace Extensions.Configuration.GitRepository.GitLabProvider
 {
-    public class GitLabRepositoryClient : IGitRepositoryClient
+    internal class GitLabRepositoryClient : IGitRepositoryClient
     {
 
         private readonly NGitLab.GitLabClient client;

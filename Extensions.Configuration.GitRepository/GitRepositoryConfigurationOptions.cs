@@ -60,6 +60,7 @@ namespace Extensions.Configuration.GitRepository
         }
 
         public string CacheToFile { get; set; }
+        public IGitRepositoryClient GitRepositoryClient { get; set; }
 
         public GitRepositoryConfigurationOptions WithRepositoryPath([NotNull] string repositoryPath)
         {

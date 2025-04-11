@@ -33,7 +33,6 @@
 	<ItemGroup>
 
 		<PackageReference Include="Hyperbee.Json" Version="3.0.2" />
-		<PackageReference Include="NGitLab" Version="8.3.0" />
 	</ItemGroup>
 	<ItemGroup>
 		<None Include="..\Icon.png" Pack="true" PackagePath="" />

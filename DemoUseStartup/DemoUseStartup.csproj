@@ -12,6 +12,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Extensions.Configuration.GitRepository.GitLabProvider\Extensions.Configuration.GitRepository.GitLabProvider.csproj" />
     <ProjectReference Include="..\Extensions.Configuration.GitRepository\Extensions.Configuration.GitRepository.csproj" />
   </ItemGroup>
 
