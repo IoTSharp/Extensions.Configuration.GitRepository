@@ -7,24 +7,27 @@ namespace Extensions.Configuration.GitRepository.GitLabProvider
     internal class GitLabRepositoryClient : IGitRepositoryClient
     {
 
-        private readonly NGitLab.GitLabClient client;
-        private readonly string _repoNamespaced;
+        private NGitLab.GitLabClient client;
+        private readonly GitRepositoryConfigurationOptions _options;
         private Project project;
         private IRepositoryClient repo;
-
-        public GitLabRepositoryClient(string hostUrl, string authenticationToken, string repoNamespaced)
+        public GitLabRepositoryClient(GitRepositoryConfigurationOptions options)
         {
-            client = new NGitLab.GitLabClient(hostUrl, authenticationToken);
-            _repoNamespaced = repoNamespaced;
+            _options = options;
         }
+
 
         private void check_connect()
         {
+            if (client == null)
+            {
+                client = new NGitLab.GitLabClient(_options.HostUrl, _options.AuthenticationToken);
+            }
             if (project == null || repo == null)
             {
                 try
                 {
-                    project = client.Projects.GetByNamespacedPathAsync(_repoNamespaced).GetAwaiter().GetResult();
+                    project = client.Projects.GetByNamespacedPathAsync(_options.RepositoryPath).GetAwaiter().GetResult();
                     repo = client.GetRepository(new ProjectId(project.Id));
                 }
                 catch (System.Exception ex)

@@ -16,8 +16,7 @@ namespace Microsoft.Extensions.Configuration
             {
                 throw new ArgumentNullException(nameof(options));
             }
-            var gitlabClient = new GitLabRepositoryClient(options.HostUrl, options.AuthenticationToken, options.RepositoryPath);
-            options.GitRepositoryClient = gitlabClient;
+            options.GitRepositoryClient = new GitLabRepositoryClient(options);
             return options;
         }
     }
