@@ -21,6 +21,7 @@ namespace Extensions.Configuration.GitRepository.TestProject
         [DataRow("GitHub", "https://github.com/", "maikebing/gitcfg", "WithGitHub", typeof(GitHubProviderExtensions), "http://127.0.0.1:7890", DisplayName = "GitHubProvider")]
         [DataRow("Gitee", "https://gitee.com/", "maikebing/gitcfg", "WithGitee", typeof(GiteeProviderExtensions), null, DisplayName = "GiteeProvider")]
         [DataRow("Gitea", "https://gitea.com/", "maikebing/gitcfg", "WithGitea", typeof(GiteaProviderExtensions), null, DisplayName = "GiteaProvider")]
+        [DataRow("Gitee", "https://gitee.com/", "r6bhzi1y90av2qtslgmwe86", "WithGiteeGists", typeof(GiteeProviderExtensions), null, DisplayName = "GiteeGistsProvider")]
         public void TestProvider(string _proveiderName, string hosturl, string repoPath, string setProveiderMethodName, Type extType, string proxy)
         {
             IConfigurationBuilder _builder;

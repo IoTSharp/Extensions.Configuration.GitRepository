@@ -2,7 +2,7 @@
 using System.Text;
 using System.Text.Json;
 
-namespace Extensions.Configuration.GitRepository.GitLabProvider
+namespace Extensions.Configuration.GitRepository.GiteeProvider
 {
     public record GitContent(string type, string encoding, int size, string name, string path, string content, string sha, string url, string html_url, string download_url);
 
