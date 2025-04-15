@@ -1,21 +1,19 @@
 ﻿using NGitLab;
 using NGitLab.Models;
-using System;
 
 namespace Extensions.Configuration.GitRepository.GitLabProvider
 {
     internal class GitLabRepositoryClient : IGitRepositoryClient
     {
-
         private NGitLab.GitLabClient client;
         private readonly GitRepositoryConfigurationOptions _options;
         private Project project;
         private IRepositoryClient repo;
+
         public GitLabRepositoryClient(GitRepositoryConfigurationOptions options)
         {
             _options = options;
         }
-
 
         private void check_connect()
         {
