@@ -20,7 +20,7 @@ namespace Extensions.Configuration.GitRepository.GitLabProvider
 
         private void check_config()
         {
-            if (_client != null)
+            if (_client == null)
             {
                 _client = new HttpClient();
                 var rp = _options.RepositoryPath.Split('/');

@@ -21,7 +21,7 @@ namespace Extensions.Configuration.GitRepository.GiteaProvider
 
         private void check_config()
         {
-            if (_client != null)
+            if (_client == null)
             {
                 Gitea.Net.Client.Configuration config = new Gitea.Net.Client.Configuration();
                 config.BasePath = $"{_options.HostUrl}/api/v1";
