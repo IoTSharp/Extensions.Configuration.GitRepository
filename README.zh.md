@@ -9,6 +9,16 @@
 ![NuGet Version](https://img.shields.io/nuget/v/Extensions.Configuration.GitRepository)
 
 
+## 配置存储平台
+
+此项目现在新增了从以下平台获取配置文件的支持：
+- **Gitee.com**
+- **GitLab**
+- **Gitea**
+- **GitHub**
+
+通过此功能，您可以从上述平台的 Git 仓库中直接获取配置文件，进一步扩展了配置的来源，方便在多平台环境下管理和加载配置文件。
+
 ### 主要功能
 - **从 Git 仓库加载配置**：允许你从指定的 Git 仓库中加载配置文件，支持多种格式（如 JSON、YAML 等）。
 - **版本控制**：借助 Git 的强大功能，轻松跟踪配置文件的变更历史，确保配置的可追溯性和版本管理。

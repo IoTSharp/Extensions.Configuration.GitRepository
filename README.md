@@ -8,6 +8,16 @@
 [![Issues Open](https://img.shields.io/github/issues/IoTSharp/Extensions.Configuration.GitRepository.svg?style=flat-square)](https://github.com/IoTSharp/Extensions.Configuration.GitRepository/issues)
 ![NuGet Version](https://img.shields.io/nuget/v/Extensions.Configuration.GitRepository)
 
+## Configuration Providers
+
+This project now supports fetching configuration files from the following platforms:
+- **Gitee.com**
+- **GitLab**
+- **Gitea**
+- **GitHub**
+
+With this feature, you can directly retrieve configuration files from repositories hosted on these platforms, making it easier to manage and load configurations in multi-platform environments.
+
 ### Key Features
 - **Load Configuration from Git Repositories**: Allows you to load configuration files from a specified Git repository, supporting various formats (such as JSON, YAML, etc.).
 - **Version Control**: Leverage Git's powerful features to easily track changes to configuration files, ensuring traceability and version management.
