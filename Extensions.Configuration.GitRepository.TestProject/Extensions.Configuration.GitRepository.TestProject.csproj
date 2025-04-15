@@ -1,4 +1,4 @@
-<Project Sdk="MSTest.Sdk/3.6.4">
+﻿<Project Sdk="MSTest.Sdk/3.6.4">
 
   <PropertyGroup>
     <TargetFramework>net9.0</TargetFramework>
@@ -19,6 +19,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Extensions.Configuration.GitRepository.GiteaProvider\Extensions.Configuration.GitRepository.GiteaProvider.csproj" />
+    <ProjectReference Include="..\Extensions.Configuration.GitRepository.GiteeProvider\Extensions.Configuration.GitRepository.GiteeProvider.csproj" />
+    <ProjectReference Include="..\Extensions.Configuration.GitRepository.GitHubProvider\Extensions.Configuration.GitRepository.GitHubProvider.csproj" />
     <ProjectReference Include="..\Extensions.Configuration.GitRepository.GitLabProvider\Extensions.Configuration.GitRepository.GitLabProvider.csproj" />
     <ProjectReference Include="..\Extensions.Configuration.GitRepository\Extensions.Configuration.GitRepository.csproj" />
   </ItemGroup>

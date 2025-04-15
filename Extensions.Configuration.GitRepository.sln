@@ -21,6 +21,14 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DemoUseStartup", "DemoUseSt
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Extensions.Configuration.GitRepository.GitLabProvider", "Extensions.Configuration.GitRepository.GitLabProvider\Extensions.Configuration.GitRepository.GitLabProvider.csproj", "{5E532959-FB2D-43B4-9004-61508E412FB3}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Extensions.Configuration.GitRepository.GiteaProvider", "Extensions.Configuration.GitRepository.GiteaProvider\Extensions.Configuration.GitRepository.GiteaProvider.csproj", "{267D7738-30B2-69AA-F757-6CF0A9394AC5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Extensions.Configuration.GitRepository.GiteeProvider", "Extensions.Configuration.GitRepository.GiteeProvider\Extensions.Configuration.GitRepository.GiteeProvider.csproj", "{8BD9CA7D-EE6D-DD73-B207-B944A34CE7C3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Extensions.Configuration.GitRepository.GitHubProvider", "Extensions.Configuration.GitRepository.GitHubProvider\Extensions.Configuration.GitRepository.GitHubProvider.csproj", "{1AC52747-A11A-F933-333A-7BC489301281}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Extensions.Configuration.GitRepository.TestProject", "Extensions.Configuration.GitRepository.TestProject\Extensions.Configuration.GitRepository.TestProject.csproj", "{80D1916A-6A9C-4F55-BA3B-2CE59B4F6AC3}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -47,6 +55,22 @@ Global
 		{5E532959-FB2D-43B4-9004-61508E412FB3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5E532959-FB2D-43B4-9004-61508E412FB3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5E532959-FB2D-43B4-9004-61508E412FB3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{267D7738-30B2-69AA-F757-6CF0A9394AC5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{267D7738-30B2-69AA-F757-6CF0A9394AC5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{267D7738-30B2-69AA-F757-6CF0A9394AC5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{267D7738-30B2-69AA-F757-6CF0A9394AC5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8BD9CA7D-EE6D-DD73-B207-B944A34CE7C3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8BD9CA7D-EE6D-DD73-B207-B944A34CE7C3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8BD9CA7D-EE6D-DD73-B207-B944A34CE7C3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8BD9CA7D-EE6D-DD73-B207-B944A34CE7C3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1AC52747-A11A-F933-333A-7BC489301281}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1AC52747-A11A-F933-333A-7BC489301281}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1AC52747-A11A-F933-333A-7BC489301281}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1AC52747-A11A-F933-333A-7BC489301281}.Release|Any CPU.Build.0 = Release|Any CPU
+		{80D1916A-6A9C-4F55-BA3B-2CE59B4F6AC3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{80D1916A-6A9C-4F55-BA3B-2CE59B4F6AC3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{80D1916A-6A9C-4F55-BA3B-2CE59B4F6AC3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{80D1916A-6A9C-4F55-BA3B-2CE59B4F6AC3}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

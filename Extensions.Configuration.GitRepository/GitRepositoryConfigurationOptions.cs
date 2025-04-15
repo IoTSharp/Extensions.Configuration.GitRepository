@@ -23,6 +23,19 @@ namespace Extensions.Configuration.GitRepository
         }
 
         public TimeSpan ReloadInterval { get; set; } = TimeSpan.FromSeconds(60);
+        public Uri Proxy { get; set; }
+        public GitRepositoryConfigurationOptions WithProxy(string _uri=null)
+        {
+            Proxy = null;
+            if (!string.IsNullOrEmpty(_uri))
+            {
+                if (Uri.TryCreate(_uri, UriKind.RelativeOrAbsolute,out Uri _result))
+                {
+                    Proxy = _result;
+                }
+            }
+            return this;
+        }
 
         public string HostUrl { get; set; }
 
