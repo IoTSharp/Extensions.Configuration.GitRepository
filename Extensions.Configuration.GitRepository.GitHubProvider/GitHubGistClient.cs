@@ -4,14 +4,13 @@ using System.Net;
 
 namespace Extensions.Configuration.GitRepository.GitHubProvider
 {
-    internal class GitHubRepositoryClient : IGitRepositoryClient
+    internal class GitHubGistClient : IGitRepositoryClient
     {
         private GitHubClient client = null;
-        private string owner;
-        private string repoName;
+        private string _gistId;
         private readonly GitRepositoryConfigurationOptions _options;
 
-        public GitHubRepositoryClient(GitRepositoryConfigurationOptions options)
+        public GitHubGistClient(GitRepositoryConfigurationOptions options)
         {
             _options = options;
         }
@@ -20,6 +19,7 @@ namespace Extensions.Configuration.GitRepository.GitHubProvider
         {
             if (client == null)
             {
+                
                 var connection = new Connection(new ProductHeaderValue("NConfiguration"),
                     new HttpClientAdapter(() =>
                     {
@@ -34,33 +34,37 @@ namespace Extensions.Configuration.GitRepository.GitHubProvider
                     }));
                 connection.Credentials = new Credentials(_options.AuthenticationToken); // This can be a PAT or an OAuth token.
                 client = new GitHubClient(connection);
-                var rp = _options.RepositoryPath.Split('/');
-                owner = rp[0];
-                repoName = rp[1];
+                _gistId = _options.RepositoryPath;
             }
         }
 
         public bool FileExists(string _filePath)
         {
             check_connect();
-            bool result = false;
-            // 搜索代码
-            var searchRequest = new SearchCodeRequest();
-            searchRequest.Repos.Add(owner, repoName);
-            searchRequest.FileName = _filePath;
-            var searchResult = client.Search.SearchCode(searchRequest).GetAwaiter().GetResult();
-            return searchResult.TotalCount == 1;
+            bool result = false;    
+             var g= client.Gist.Get(_gistId).GetAwaiter().GetResult();
+            if (g.Files.Any(f=>f.Key==_filePath))
+            {
+                result = true;
+            }
+            return result;
         }
 
         public string GetFile(string _fileName)
         {
-            var rs = client.Repository.Content.GetAllContents(owner, repoName, _fileName).GetAwaiter().GetResult();
-            return rs?.FirstOrDefault()?.Content;
+            check_connect();
+            var g = client.Gist.Get(_gistId).GetAwaiter().GetResult();
+            var txt = g.Files.FirstOrDefault(f => f.Key == _fileName).Value.Content;
+            return txt;
         }
 
         public void PutFile(string _fileName, string _content, string _msg)
         {
-            client.Repository.Content.CreateFile(owner, repoName, _fileName, new CreateFileRequest("upload file", _content)).GetAwaiter().GetResult();
+            check_connect();
+            var g = new GistUpdate();
+            g.Files.Add(_fileName, new GistFileUpdate() { Content = _content, NewFileName = _fileName });
+            g.Description = _msg;
+            var eg= client.Gist.Edit(_gistId, g).GetAwaiter().GetResult();
         }
     }
 }
