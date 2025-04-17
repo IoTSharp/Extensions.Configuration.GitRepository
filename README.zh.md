@@ -4,18 +4,21 @@
 **Git repository configuration provider** 是一个用于管理和加载配置文件的库，专门为 C# 开发者设计。它允许开发者从 Git 仓库中直接读取配置文件，以便在分布式系统或微服务架构中实现集中配置管理和版本控制。
 
 [![Build status](https://ci.appveyor.com/api/projects/status/egfxe7u2b23672j6?svg=true)](https://ci.appveyor.com/project/MaiKeBing/extensions-configuration-gitrepository)
-[![NuGet Count](https://img.shields.io/nuget/dt/Extensions.Configuration.GitRepository.svg?style=flat-square)](https://www.nuget.org/packages/Extensions.Configuration.GitRepository/)
 [![Issues Open](https://img.shields.io/github/issues/IoTSharp/Extensions.Configuration.GitRepository.svg?style=flat-square)](https://github.com/IoTSharp/Extensions.Configuration.GitRepository/issues)
 ![NuGet Version](https://img.shields.io/nuget/v/Extensions.Configuration.GitRepository)
+[![NuGet Count](https://img.shields.io/nuget/dt/Extensions.Configuration.GitRepository.svg?style=flat-square)](https://www.nuget.org/packages/Extensions.Configuration.GitRepository/)
+
+
 
 
 ## 配置存储平台
 
 此项目现在新增了从以下平台获取配置文件的支持：
-- **Gitee.com**
-- **GitLab**
-- **Gitea**
-- **GitHub**
+- **Gitee.com** ![NuGet Version](https://img.shields.io/nuget/v/Extensions.Configuration.GitRepository.GiteeProvider)   [![NuGet Count](https://img.shields.io/nuget/dt/Extensions.Configuration.GitRepository.GiteeProvider.svg?style=flat-square)](https://www.nuget.org/packages/Extensions.Configuration.GitRepository.GiteeProvider/)
+- **GitLab** ![NuGet Version](https://img.shields.io/nuget/v/Extensions.Configuration.GitRepository.GitLabProvider)  [![NuGet Count](https://img.shields.io/nuget/dt/Extensions.Configuration.GitRepository.GitLabProvider.svg?style=flat-square)](https://www.nuget.org/packages/Extensions.Configuration.GitRepository.GitLabProvider/)
+- **Gitea**  ![NuGet Version](https://img.shields.io/nuget/v/Extensions.Configuration.GitRepository.GiteaProvider) [![NuGet Count](https://img.shields.io/nuget/dt/Extensions.Configuration.GitRepository.GiteaProvider.svg?style=flat-square)](https://www.nuget.org/packages/Extensions.Configuration.GitRepository.GiteaProvider/)
+- **GitHub** ![NuGet Version](https://img.shields.io/nuget/v/Extensions.Configuration.GitRepository.GitHubProvider) [![NuGet Count](https://img.shields.io/nuget/dt/Extensions.Configuration.GitRepository.GitHubProvider.svg?style=flat-square)](https://www.nuget.org/packages/Extensions.Configuration.GitRepository.GitHubProvider/)
+
 
 通过此功能，您可以从上述平台的 Git 仓库中直接获取配置文件，进一步扩展了配置的来源，方便在多平台环境下管理和加载配置文件。
 
