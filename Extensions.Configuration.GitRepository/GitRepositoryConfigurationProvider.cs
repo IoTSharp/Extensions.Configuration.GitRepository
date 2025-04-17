@@ -64,10 +64,9 @@ namespace Extensions.Configuration.GitRepository
                 {
                     _jsonData = ReadCache();
                 }
-                 ReadGitRepo( ref _jsonData);
-                if (_jsonData != null)
+               bool result=  ReadGitRepo( ref _jsonData);
+                if (_jsonData != null && result)
                 {
-
                     Data = JsonConfigurationFileParser.Parse(_jsonData);
                     OnReload();
                 }
@@ -84,8 +83,9 @@ namespace Extensions.Configuration.GitRepository
             }
         }
 
-        private void  ReadGitRepo( ref JsonDocument _jsonData)
+        private bool  ReadGitRepo( ref JsonDocument _jsonData)
         {
+            bool result = false;
             try
             {
                 if (__gitRepo.FileExists(_options.FileName))
@@ -97,6 +97,7 @@ namespace Extensions.Configuration.GitRepository
                         if (_jsonData != null)
                         {
                             SaveCache(fileContent);
+                            result = true;
                         }
                     }
                     else
@@ -109,6 +110,7 @@ namespace Extensions.Configuration.GitRepository
                             string _json = _jn.ToJsonString(new JsonSerializerOptions() { WriteIndented = true });
                             SaveCache(_json);
                             _jsonData = JsonDocument.Parse(_json);
+                            result = true;
 
                         }
                     }
@@ -126,6 +128,7 @@ namespace Extensions.Configuration.GitRepository
                 Console.WriteLine(ex1.ToString());
 
             }
+            return result;
         }
 
         private JsonDocument ReadCache()
