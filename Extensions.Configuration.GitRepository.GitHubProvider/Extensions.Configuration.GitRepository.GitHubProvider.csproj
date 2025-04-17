@@ -8,8 +8,8 @@
 		<FileVersion>1.0.0</FileVersion>
 		<AssemblyVersion>1.0.0</AssemblyVersion>
 		<Version>1.0.0</Version>
-		<Description>Provides GitRepository's file configuration provider</Description>
-		<PackageTags>GitRepository;configuration; ASP.NET Core</PackageTags>
+		<Description>GitHub's repository and gist configuration provider implementation to use with Microsoft.Extensions.Configuration.</Description>
+		<PackageTags>GitRepository;configuration; ASP.NET Core;GitHub;gist</PackageTags>
 		<RepositoryUrl>https://github.com/IoTSharp/Extensions.Configuration.GitRepository</RepositoryUrl>
 		<RepositoryType>Git</RepositoryType>
 		<PackageLicenseExpression>MIT</PackageLicenseExpression>
