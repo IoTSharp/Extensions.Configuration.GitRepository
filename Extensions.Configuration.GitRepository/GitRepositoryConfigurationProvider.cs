@@ -105,6 +105,7 @@ namespace Extensions.Configuration.GitRepository
                         var _diff = JsonDiff<JsonNode>.Diff(_jsonData, JsonDocument.Parse(fileContent)).ToArray();
                         if (_diff.Any())
                         {
+
                             var jp = new JsonPatch(_diff.ToArray());
                             var _jn = jp.Apply(_jsonData.RootElement);
                             string _json = _jn.ToJsonString(new JsonSerializerOptions() { WriteIndented = true });
@@ -149,7 +150,11 @@ namespace Extensions.Configuration.GitRepository
         {
             try
             {
-                System.IO.File.WriteAllText(_options.CacheToFile, fileContent);
+                if(!string.IsNullOrEmpty(_options.CacheToFile))
+                {
+                    System.IO.File.WriteAllText(_options.CacheToFile, fileContent);
+                }
+                
             }
             catch (Exception ex)
             {

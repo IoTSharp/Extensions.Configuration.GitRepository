@@ -26,18 +26,18 @@ namespace Extensions.Configuration.GitRepository.GiteeProvider
                 var rp = _options.RepositoryPath.Split('/');
                 owner = rp[0];
                 repoName = rp[1];
-                _client.BaseAddress = new Uri($"https://gitee.com/api/v5/repos/{owner}/{repoName}/contents/");
+                _client.BaseAddress = new Uri($"https://gitee.com/api/v5/repos/{owner}/{repoName}/");
             }
         }
 
         public bool FileExists(string _filePath)
         {
             check_config();
-            var reps = _client.GetAsync($"/{_filePath}?access_token={_options.AuthenticationToken}").GetAwaiter().GetResult();
+            var reps = _client.GetAsync($"contents/{_filePath}?access_token={_options.AuthenticationToken}").GetAwaiter().GetResult();
             if (reps.StatusCode == System.Net.HttpStatusCode.OK)
             {
-                var rep = JsonSerializer.Deserialize<List<GitContent>>(reps.Content.ReadAsStream());
-                return rep?.Any(gc => gc.path == _filePath) == true;
+                var rep = JsonSerializer.Deserialize<GitContent>(reps.Content.ReadAsStream());
+                return rep.path== _filePath;
             }
             else
             {
@@ -58,7 +58,7 @@ namespace Extensions.Configuration.GitRepository.GiteeProvider
             check_config();
             //curl -X POST --header 'Content-Type: ' 'https://gitee.com/api/v5/repos/maikebing/gitcfg/contents/Gitee.json' -d '{"access_token":"d675106450be61985dd39ec076cc05c0","content":"sdfsd","message":"sdfsd"}'
             var body = JsonContent.Create(new { access_token = _options.AuthenticationToken, content = Convert.ToBase64String(Encoding.UTF8.GetBytes(_content)), message = _msg });
-            var reps = _client.PostAsync($"{_fileName}", body).GetAwaiter().GetResult();
+            var reps = _client.PostAsync($"contents/{_fileName}", body).GetAwaiter().GetResult();
         }
     }
 }
