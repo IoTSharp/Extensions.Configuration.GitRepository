@@ -1,4 +1,4 @@
-## IoTSharp/Extensions.Configuration.GitRepository
+## IoTSharp's Extensions.Configuration.GitRepository
 
 ### Project Overview
 **Git repository configuration provider** is a library designed for managing and loading configuration files, specifically for C# developers. It allows developers to read configuration files directly from a Git repository, enabling centralized configuration management and version control in distributed systems or microservice architectures.
@@ -11,10 +11,14 @@
 ## Configuration Providers
 
 This project now supports fetching configuration files from the following platforms:
-- **Gitee.com** ![NuGet Version](https://img.shields.io/nuget/v/Extensions.Configuration.GitRepository.GiteeProvider)   [![NuGet Count](https://img.shields.io/nuget/dt/Extensions.Configuration.GitRepository.GiteeProvider.svg?style=flat-square)](https://www.nuget.org/packages/Extensions.Configuration.GitRepository.GiteeProvider/)
-- **GitLab** ![NuGet Version](https://img.shields.io/nuget/v/Extensions.Configuration.GitRepository.GitLabProvider)  [![NuGet Count](https://img.shields.io/nuget/dt/Extensions.Configuration.GitRepository.GitLabProvider.svg?style=flat-square)](https://www.nuget.org/packages/Extensions.Configuration.GitRepository.GitLabProvider/)
-- **Gitea**  ![NuGet Version](https://img.shields.io/nuget/v/Extensions.Configuration.GitRepository.GiteaProvider) [![NuGet Count](https://img.shields.io/nuget/dt/Extensions.Configuration.GitRepository.GiteaProvider.svg?style=flat-square)](https://www.nuget.org/packages/Extensions.Configuration.GitRepository.GiteaProvider/)
-- **GitHub** ![NuGet Version](https://img.shields.io/nuget/v/Extensions.Configuration.GitRepository.GitHubProvider) [![NuGet Count](https://img.shields.io/nuget/dt/Extensions.Configuration.GitRepository.GitHubProvider.svg?style=flat-square)](https://www.nuget.org/packages/Extensions.Configuration.GitRepository.GitHubProvider/)
+
+| Git repository | Git files | gist | version                                                      | downloads                                                    |
+| -------------- | --------- | ---- | ------------------------------------------------------------ | ------------------------------------------------------------ |
+| Gitee          | √         | √    | ![NuGet Version](https://img.shields.io/nuget/v/Extensions.Configuration.GitRepository.GiteeProvider) | [![NuGet Count](https://img.shields.io/nuget/dt/Extensions.Configuration.GitRepository.GiteeProvider.svg?style=flat-square)](https://www.nuget.org/packages/Extensions.Configuration.GitRepository.GiteeProvider/) |
+| GitLab         | √         |      | ![NuGet Version](https://img.shields.io/nuget/v/Extensions.Configuration.GitRepository.GitLabProvider) | [![NuGet Count](https://img.shields.io/nuget/dt/Extensions.Configuration.GitRepository.GitLabProvider.svg?style=flat-square)](https://www.nuget.org/packages/Extensions.Configuration.GitRepository.GitLabProvider/) |
+| Gitea          | √         |      | ![NuGet Version](https://img.shields.io/nuget/v/Extensions.Configuration.GitRepository.GiteaProvider) | [![NuGet Count](https://img.shields.io/nuget/dt/Extensions.Configuration.GitRepository.GiteaProvider.svg?style=flat-square)](https://www.nuget.org/packages/Extensions.Configuration.GitRepository.GiteaProvider/) |
+| GitHub         | √         | √    | ![NuGet Version](https://img.shields.io/nuget/v/Extensions.Configuration.GitRepository.GitHubProvider) | [![NuGet Count](https://img.shields.io/nuget/dt/Extensions.Configuration.GitRepository.GitHubProvider.svg?style=flat-square)](https://www.nuget.org/packages/Extensions.Configuration.GitRepository.GitHubProvider/) |
+
 
 With this feature, you can directly retrieve configuration files from repositories hosted on these platforms, making it easier to manage and load configurations in multi-platform environments.
 

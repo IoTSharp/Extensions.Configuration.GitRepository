@@ -14,10 +14,13 @@
 ## 配置存储平台
 
 此项目现在新增了从以下平台获取配置文件的支持：
-- **Gitee.com** ![NuGet Version](https://img.shields.io/nuget/v/Extensions.Configuration.GitRepository.GiteeProvider)   [![NuGet Count](https://img.shields.io/nuget/dt/Extensions.Configuration.GitRepository.GiteeProvider.svg?style=flat-square)](https://www.nuget.org/packages/Extensions.Configuration.GitRepository.GiteeProvider/)
-- **GitLab** ![NuGet Version](https://img.shields.io/nuget/v/Extensions.Configuration.GitRepository.GitLabProvider)  [![NuGet Count](https://img.shields.io/nuget/dt/Extensions.Configuration.GitRepository.GitLabProvider.svg?style=flat-square)](https://www.nuget.org/packages/Extensions.Configuration.GitRepository.GitLabProvider/)
-- **Gitea**  ![NuGet Version](https://img.shields.io/nuget/v/Extensions.Configuration.GitRepository.GiteaProvider) [![NuGet Count](https://img.shields.io/nuget/dt/Extensions.Configuration.GitRepository.GiteaProvider.svg?style=flat-square)](https://www.nuget.org/packages/Extensions.Configuration.GitRepository.GiteaProvider/)
-- **GitHub** ![NuGet Version](https://img.shields.io/nuget/v/Extensions.Configuration.GitRepository.GitHubProvider) [![NuGet Count](https://img.shields.io/nuget/dt/Extensions.Configuration.GitRepository.GitHubProvider.svg?style=flat-square)](https://www.nuget.org/packages/Extensions.Configuration.GitRepository.GitHubProvider/)
+
+| Git仓库 | Git 文件 | 代码段 | 版本                                                         | 下载量                                                       |
+| ------- | -------- | ------ | ------------------------------------------------------------ | ------------------------------------------------------------ |
+| Gitee   | √        | √      | ![NuGet Version](https://img.shields.io/nuget/v/Extensions.Configuration.GitRepository.GiteeProvider) | [![NuGet Count](https://img.shields.io/nuget/dt/Extensions.Configuration.GitRepository.GiteeProvider.svg?style=flat-square)](https://www.nuget.org/packages/Extensions.Configuration.GitRepository.GiteeProvider/) |
+| GitLab  | √        |        | ![NuGet Version](https://img.shields.io/nuget/v/Extensions.Configuration.GitRepository.GitLabProvider) | [![NuGet Count](https://img.shields.io/nuget/dt/Extensions.Configuration.GitRepository.GitLabProvider.svg?style=flat-square)](https://www.nuget.org/packages/Extensions.Configuration.GitRepository.GitLabProvider/) |
+| Gitea   | √        |        | ![NuGet Version](https://img.shields.io/nuget/v/Extensions.Configuration.GitRepository.GiteaProvider) | [![NuGet Count](https://img.shields.io/nuget/dt/Extensions.Configuration.GitRepository.GiteaProvider.svg?style=flat-square)](https://www.nuget.org/packages/Extensions.Configuration.GitRepository.GiteaProvider/) |
+| GitHub  | √        | √      | ![NuGet Version](https://img.shields.io/nuget/v/Extensions.Configuration.GitRepository.GitHubProvider) | [![NuGet Count](https://img.shields.io/nuget/dt/Extensions.Configuration.GitRepository.GitHubProvider.svg?style=flat-square)](https://www.nuget.org/packages/Extensions.Configuration.GitRepository.GitHubProvider/) |
 
 
 通过此功能，您可以从上述平台的 Git 仓库中直接获取配置文件，进一步扩展了配置的来源，方便在多平台环境下管理和加载配置文件。
@@ -81,6 +84,6 @@ public class Program
 ### 许可证
 该项目基于 MIT 许可证，详情请参阅 [LICENSE](https://github.com/IoTSharp/Extensions.Configuration.GitRepository/blob/main/LICENSE) 文件。
 
- 
+
 ### 感谢
 灵感来源于 https://github.com/denis-ivanov/Extensions.Configuration.GitLab
