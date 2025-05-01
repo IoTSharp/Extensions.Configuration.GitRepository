@@ -17,7 +17,7 @@ namespace Extensions.Configuration.GitRepository.TestProject
         }
 
         [TestMethod]
-        [DataRow("GitLab", "https://gitlab.com/", "maikebing/gitcfg", "WithGitLab", typeof(GitLabProviderExtensions), null, DisplayName = "GitLabProvider")]
+        [DataRow("GitLab", "https://gitlab.com/", "maikebing/gitcfg", "WithGitLab", typeof(GitLabProviderExtensions), "http://127.0.0.1:7890", DisplayName = "GitLabProvider")]
         [DataRow("GitHub", "https://github.com/", "maikebing/gitcfg", "WithGitHub", typeof(GitHubProviderExtensions), "http://127.0.0.1:7890", DisplayName = "GitHubProvider")]
         [DataRow("GitHub", "https://github.com/", "8f00a80b168022dbfec1769c3ae8145c", "WithGitHubGist", typeof(GitHubProviderExtensions), "http://127.0.0.1:7890", DisplayName = "GitHubProvider")]
         [DataRow("Gitee", "https://gitee.com/", "maikebing/gitcfg", "WithGitee", typeof(GiteeProviderExtensions), null, DisplayName = "GiteeProvider")]

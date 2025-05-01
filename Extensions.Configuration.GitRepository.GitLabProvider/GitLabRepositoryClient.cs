@@ -20,6 +20,7 @@ namespace Extensions.Configuration.GitRepository.GitLabProvider
             if (client == null)
             {
                 client = new NGitLab.GitLabClient(_options.HostUrl, _options.AuthenticationToken);
+                
             }
             if (project == null || repo == null)
             {

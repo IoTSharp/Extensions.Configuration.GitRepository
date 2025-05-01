@@ -65,7 +65,7 @@ namespace Extensions.Configuration.GitRepository
                     _jsonData = ReadCache();
                 }
                bool result=  ReadGitRepo( ref _jsonData);
-                if (_jsonData != null && result)
+                if (_jsonData != null && (result || Data?.Count==0 ) )
                 {
                     Data = JsonConfigurationFileParser.Parse(_jsonData);
                     OnReload();
