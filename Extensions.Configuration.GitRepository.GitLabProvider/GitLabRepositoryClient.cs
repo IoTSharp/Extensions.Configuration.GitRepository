@@ -20,7 +20,7 @@ namespace Extensions.Configuration.GitRepository.GitLabProvider
             if (client == null)
             {
                 client = new NGitLab.GitLabClient(_options.HostUrl, _options.AuthenticationToken);
-                
+                if (_options.Proxy != null) client.Options.Proxy = new System.Net.WebProxy(_options.Proxy);
             }
             if (project == null || repo == null)
             {

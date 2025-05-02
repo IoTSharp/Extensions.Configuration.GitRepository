@@ -49,28 +49,31 @@ dotnet add package Extensions.Configuration.GitRepository
 #### 示例代码
 以下是一个简单的示例，展示如何使用此库从 Git 仓库中加载配置文件：
 
+
 ```csharp
-using Microsoft.Extensions.Configuration;
-using Extensions.Configuration.GitRepository;
+var builder = WebApplication.CreateBuilder(args);
+builder.Services.AddControllers();
+builder.Services.AddOpenApi();
+builder.Configuration.AddUserSecrets("personal_access_tokens");
+builder.Configuration.AddGitRepository(cfg => cfg.WithGitLab()
+                                                .WithHostUrl("https://git.uixe.net/")
+                                                .WithRepositoryPath("uixe/stdlanedevctlsvr")
+                                                .WithAuthenticationToken(builder.Configuration.GetValue<string>("personal_access_tokens"))
+                                                .WithFileName($"{Environment.GetEnvironmentVariable("UIXEID")}/appsettings.{builder.Environment.EnvironmentName}.json")
+                                                .WithCache($"{builder.Environment.ContentRootPath}{System.IO.Path.DirectorySeparatorChar}appsettings.{builder.Environment.EnvironmentName}.json")
+                                        );
 
-public class Program
+var app = builder.Build();
+
+// Configure the HTTP request pipeline.
+if (app.Environment.IsDevelopment())
 {
-    public static void Main(string[] args)
-    {
-        var builder = new ConfigurationBuilder()
-            .AddGitRepository(options =>
-            {
-                options.RepositoryUrl = "https://gitlab.com/your-repo.git";
-                options.Branch = "main";
-                options.FilePath = "appsettings.json";
-                options.PollingInterval = TimeSpan.FromMinutes(5);
-            });
-
-        IConfiguration configuration = builder.Build();
-
-        string mySetting = configuration["MySetting"];
-        Console.WriteLine($"MySetting: {mySetting}");
-    }
+    app.MapOpenApi();
+}
+Console.WriteLine($"abc={app.Configuration.GetValue<string>("abc")}");
+app.UseAuthorization();
+app.MapControllers();
+app.Run();
 }
 ```
 
