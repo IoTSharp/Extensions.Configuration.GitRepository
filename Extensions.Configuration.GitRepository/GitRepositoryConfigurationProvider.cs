@@ -101,16 +101,15 @@ namespace Extensions.Configuration.GitRepository
                         }
                     }
                     else
-                    {//如果远程文件存在，本地文件存在， 就比较两个文件的差异，如果有差异， 就合并差异，然后缓存到本地，然后重新加载
-                        var _diff = JsonDiff<JsonNode>.Diff(_jsonData, JsonDocument.Parse(fileContent)).ToArray();
+                    {
+                        //如果远程文件存在，本地文件存在， 就比较两个文件的差异，如果有差异，  就把远程文件覆盖本地文件
+                        var rem = JsonDocument.Parse(fileContent);
+                        var _diff = JsonDiff<JsonNode>.Diff(_jsonData, rem).ToArray();
                         if (_diff.Any())
                         {
-
-                            var jp = new JsonPatch(_diff.ToArray());
-                            var _jn = jp.Apply(_jsonData.RootElement);
-                            string _json = _jn.ToJsonString(new JsonSerializerOptions() { WriteIndented = true });
+                            string _json = rem.ToJsonString();
                             SaveCache(_json);
-                            _jsonData = JsonDocument.Parse(_json);
+                            _jsonData = rem;
                             result = true;
 
                         }
